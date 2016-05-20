@@ -1,0 +1,118 @@
+body{
+	font-family: 'Open Sans',sans-serif;
+	background-color: #f5f5f5;
+	color:#4e4e4e;
+}
+
+/*导航部分*/
+.top{
+	background-color: #1a86c0
+}
+.pad-btm-100{
+	padding-bottom: 100px;
+}
+.bot-nav>li>a{
+	color:white;
+}
+.bot-nav>li>a:hover,.bot-nav>li>a:focus{
+	color:black;
+	background-color: transparent;
+}
+.bot-navbar-toggle .icon-bar{
+	background-color: white
+}
+.navbar-brand>img{
+	width: 100px;
+	height:20px;
+}
+.head-main-icon{
+	width: 60%;
+}
+.head-title{
+	color:white;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+.head-input{
+	height: 42px;
+	float: left;
+	width: 75%!important;
+}
+.head-btn{
+	height: 42px;
+	float: right;
+	width: 21%!important;
+	border:1px solid white;
+	background-color: transparent;
+	color:white;
+}
+.top form{
+	margin-top:40px;
+}
+
+/*内容部分*/
+.main{
+	margin-top: 40px;
+}
+.main-left dl dt{
+	line-height: 2.5em;
+}
+.main-left dl dd{
+	color:#888;
+	line-height: 1.6em
+}
+.main-left dl dd:hover{
+	text-decoration: underline;
+}
+.small-icon img{
+	height: 20px;
+}
+.fixbox{
+	margin-bottom: 30px;
+}
+.fill{
+	width: 100%;
+	border-radius: 10px;
+}
+.block{
+	margin-bottom: 20px;
+}
+.block>p{
+	line-height: 2.5em;
+	margin-bottom: 0;
+	font-weight: 700;
+}
+.block>hr{
+	margin-top: 0;
+	border-top: 1px solid #aaa
+}
+.fixbox-right h4{
+	margin-top: 0;
+	margin-bottom: 5px;
+	font-weight: 700;
+}
+.fixbox-right p{
+	color:#777;
+	font-size: 12px;
+
+}
+
+
+/*尾部部分*/
+footer{
+	margin-top: 60px;
+}
+footer h2{
+	color:#777;
+}
+footer hr{
+	border-top: 1px solid #aaa
+}
+
+
+@media screen  and (max-width: 768px) {
+	.main-left{
+		display: none;
+	}
+}
