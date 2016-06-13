@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>black line</title>
+	<style type="text/css">
+	body{margin:0;padding:0;overflow: hidden}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById("canvas")
+		var ctx = canvas.getContext("2d")
+		var mouseX = 600 	//记录鼠标点击的X坐标
+		var mouseY = 600	//记录鼠标点击的Y坐标
+		var number = 4		//每个方向黑线的数量=number*2
+		var spacing = 2.5  // 黑线之间的间距
+
+		// 为了防止某些极端角度情况，斜线段显示截断，所以把canvas的宽高设置的非常大，同时给body 设置了overflow:hidden
+		canvas.width = 10000
+		canvas.height = 10000
+
+		window.onload=function(){
+			// 首先在页面打开后，先绘制一个默认页面
+			render(mouseX,mouseY,number,spacing)
+
+			// 当鼠标点击时，更新鼠标点击的位置，重新绘制
+			window.addEventListener("click",function(e){
+				var ev = e || window.event
+				mouseX = ev.clientX
+				mouseY = ev.clientY
+				render(mouseX,mouseY,number,spacing)
+			})
+
+			// 鼠标滚动，实现放大和缩小
+			wheel(window,big,small)
+		}
+		
+		// 绘制函数
+		function render(x,y,num,spacing){
+			ctx.clearRect(0,0,canvas.width,canvas.height)
+			var angle = -Math.atan(x/y)
+			for (var i = -num; i < num+1; i++) {
+				horizontal(y+i*spacing)
+				vertical(x+i*spacing)
+				tilt(x+i*spacing*0.7,y+i*spacing*0.7,angle)
+			}
+			
+		}
+		// 鼠标放大滚动时，黑线放大
+		function big(){
+			number += 2+Math.floor(number*0.1)	//number增大,且增大的速度越来越快
+			spacing += 1
+			render(mouseX,mouseY,number,spacing)
+		}
+		// 鼠标缩小混动时，黑线缩小
+		function small(){
+			number -= 2+Math.floor(number*0.1)	//number减小,且减小的速度越来越小
+			spacing -= 1
+			if(number<=2){number=2;spacing = 2.2}
+
+			render(mouseX,mouseY,number,spacing)
+			
+		}
+		// 水平黑线的绘制方法
+		function horizontal(y){
+			ctx.save()
+			ctx.beginPath()
+			ctx.moveTo(0,y)
+			ctx.lineTo(canvas.width,y)
+			ctx.stroke()
+			ctx.restore()
+		}
+		// 垂直黑线的绘制方法
+		function vertical(x){
+			ctx.save()
+			ctx.beginPath()
+			ctx.moveTo(x,0)
+			ctx.lineTo(x,canvas.height)
+			ctx.stroke()
+			ctx.restore()
+		}
+		// 斜线的绘制方法
+		function tilt(x,y,angle){			
+			ctx.save()
+			ctx.beginPath()
+			ctx.translate(x,y)
+			ctx.rotate(angle)
+			ctx.translate(-x*2,-y*2)
+			ctx.moveTo(0,y*2)
+			ctx.lineTo(canvas.width,y*2)		
+			ctx.stroke()
+			ctx.restore()		
+		}
+		 // 滚轮事件封装函数
+		function wheel(obj,upFn,downFn) {
+
+		    if(arguments.length < 3){
+		        alert('Sorry,你输入的参数不够');
+		    }
+
+		    obj.onmousewheel = fn;  
+
+		    obj.addEventListener && obj.addEventListener('DOMMouseScroll',fn,false);
+
+		    function fn(ev){
+
+		        var ev = ev || window.event;
+
+		        var bool = true;
+
+		        if(ev.wheelDelta){
+		            bool = ev.wheelDelta > 0 ? true : false;
+		        }else if(ev.detail){
+		            bool = ev.detail < 0 ? true : false;
+		        }
+
+		        bool && upFn();
+		        (!bool) && downFn();
+
+		        //prevent(ev);
+
+		    }
+		}
+
+	</script>
+</body>
+</html>
